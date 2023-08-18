@@ -1,0 +1,6 @@
+potassium
+torch
+transformers
+diffusers
+xformers
+accelerate
