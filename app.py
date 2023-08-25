@@ -83,7 +83,7 @@ def handler(context: dict, request: Request) -> Response:
     image_base64 = base64.b64encode(buffered.getvalue()).decode('utf-8')
    
     return Response(
-        json = {"outputs": prompt, "image":image_base64}, 
+        json = {"image":image_base64}, 
         status=200
     )
 
