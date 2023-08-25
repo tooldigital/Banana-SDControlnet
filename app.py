@@ -22,6 +22,9 @@ def init():
 
     controlnet = ControlNetModel.from_pretrained("lllyasviel/control_v11f1p_sd15_depth",torch_dtype=torch.float16)
     model = StableDiffusionControlNetPipeline.from_pretrained("runwayml/stable-diffusion-v1-5",controlnet=controlnet,torch_dtype=torch.float16)
+    model.to("cuda")
+    #model.enable_model_cpu_offload()
+    #model.enable_xformers_memory_efficient_attention()
 
 
     '''controlnet = ControlNetModel.from_pretrained("lllyasviel/sd-controlnet-canny", torch_dtype=torch.float16)
@@ -65,8 +68,7 @@ def handler(context: dict, request: Request) -> Response:
     depth_base64 = base64.b64encode(buffered.getvalue()).decode('utf-8')
  
     model.scheduler = UniPCMultistepScheduler.from_config(model.scheduler.config)
-    model.enable_model_cpu_offload()
-    model.enable_xformers_memory_efficient_attention()
+   
 
     output = model(
         prompt,
