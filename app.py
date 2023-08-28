@@ -64,7 +64,7 @@ def handler(context: dict, request: Request) -> Response:
 
 
     buffered = BytesIO()
-    control_image.save(buffered,format="JPEG")
+    control_image.save(buffered,format="PNG")
     depth_base64 = base64.b64encode(buffered.getvalue()).decode('utf-8')
  
     model.scheduler = UniPCMultistepScheduler.from_config(model.scheduler.config)
@@ -79,7 +79,7 @@ def handler(context: dict, request: Request) -> Response:
 
     out_image = output.images[0]
     buffered = BytesIO()
-    out_image.save(buffered,format="JPEG")
+    out_image.save(buffered,format="PNG")
     image_base64 = base64.b64encode(buffered.getvalue()).decode('utf-8')
    
     return Response(
